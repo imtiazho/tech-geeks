@@ -1,24 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Navbar from './Components/NavBar/Navbar';
+import Home from './Components/Home/Home';
+import BlogsDetails from './Components/BlogsDetails/BlogsDetails';
+import { createContext, useState } from 'react';
+
+
+export const BlogContext = createContext()
 
 function App() {
+  const [blogs, setBlogs] = useState([])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BlogContext.Provider  value={[blogs, setBlogs]}>
+      <Navbar></Navbar>
+      <Routes>
+        <Route path='/' element={<Home></Home>}></Route>
+        <Route path='blog/:id' element={<BlogsDetails></BlogsDetails>}></Route>
+      </Routes>
+    </BlogContext.Provider>
   );
 }
 
